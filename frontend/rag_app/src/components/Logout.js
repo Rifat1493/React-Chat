@@ -1,26 +1,23 @@
-// src/components/Logout.js
 import React from 'react';
 import { Button, Container, Typography, Box } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { clearToken } from '../store/AuthSlice';
 
-const Logout = ({ setToken }) => {
+const Logout = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleLogout = async () => {
     try {
-      // Call the logout API
       await axios.post('http://127.0.0.1:8000/api/auth/logout/', {}, {
         headers: {
           Authorization: `Token ${localStorage.getItem('token')}`,
         },
       });
 
-      // Clear token from localStorage and state
-      localStorage.removeItem('token');
-      setToken(null);
-
-      // Redirect to login page
+      dispatch(clearToken());
       navigate('/login');
     } catch (error) {
       console.error('Logout failed', error);

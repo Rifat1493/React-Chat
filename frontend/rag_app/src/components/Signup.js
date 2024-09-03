@@ -7,22 +7,23 @@ import { useNavigate } from 'react-router-dom';
 const Signup = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [password1, setPassword] = useState('');
+  const [password2, setConfirmPassword] = useState('');
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    if (password !== confirmPassword) {
+    if (password1 !== password2) {
       setError('Passwords do not match');
       return;
     }
     try {
       await axios.post('http://127.0.0.1:8000/api/auth/signup/', {
         username,
-        email,
-        password,
+        // email,
+        password1,
+        password2
       });
       navigate('/login'); // Redirect to login after successful signup
     } catch (error) {
@@ -59,7 +60,7 @@ const Signup = () => {
             label="Password"
             type="password"
             fullWidth
-            value={password}
+            value={password1}
             onChange={(e) => setPassword(e.target.value)}
             margin="normal"
             required
@@ -68,7 +69,7 @@ const Signup = () => {
             label="Confirm Password"
             type="password"
             fullWidth
-            value={confirmPassword}
+            value={password2}
             onChange={(e) => setConfirmPassword(e.target.value)}
             margin="normal"
             required

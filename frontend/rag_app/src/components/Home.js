@@ -1,26 +1,23 @@
-// src/components/Predict.js
 import React, { useState } from 'react';
 import { Button, Container, Typography, Box } from '@mui/material';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
-const Home = ({ token }) => {
+const Home = () => {
   const [prediction, setPrediction] = useState(null);
+  const token = useSelector((state) => state.auth.token);
 
   const handlePredict = async () => {
-    
     try {
-        
-      const response = await axios.post('http://127.0.0.1:8000/api/predict/',{
+      const response = await axios.post('http://127.0.0.1:8000/api/predict/', {
         firstName: 'Fred',
         lastName: 'Flintstone',
         orders: [1, 2, 3]
       }, {
         headers: {
           Authorization: `Token ${token}`,
-        // Authorization: `Token ${localStorage.getItem('token')}`,
-          
         },
-    });
+      });
       setPrediction(response.data);
     } catch (error) {
       console.error('Prediction failed', error);

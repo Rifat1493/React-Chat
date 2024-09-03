@@ -1,21 +1,22 @@
-// src/components/Login.js
 import React, { useState } from 'react';
 import { TextField, Button, Container, Typography, Box } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setToken } from '../store/AuthSlice';
 
-const Login = ({ setToken }) => {
+const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post('http://127.0.0.1:8000/api/auth/login/', { username, password });
       const token = response.data.key;
-      setToken(token);
-      localStorage.setItem('token', token); // Save token in localStorage
+      dispatch(setToken(token));
       navigate('/home');
     } catch (error) {
       console.error('Login failed', error);
