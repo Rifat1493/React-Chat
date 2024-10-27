@@ -1,1 +1,10 @@
 dev.env
+backend/django_app/prediction/media/
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Django specific
+*.log
+*.pot
+*.pyc

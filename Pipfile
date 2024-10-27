@@ -12,6 +12,11 @@ django = "*"
 dj-rest-auth = "*"
 django-allauth = "*"
 requests = "*"
+chromadb = "*"
+langchain = "*"
+langchain-community = "*"
+sentence-transformers = "*"
+pymupdf = "*"
 
 [dev-packages]
 

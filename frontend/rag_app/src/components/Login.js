@@ -17,6 +17,7 @@ const Login = () => {
       const response = await axios.post('http://127.0.0.1:8000/api/auth/login/', { username, password });
       const token = response.data.key;
       dispatch(setToken(token));
+      localStorage.setItem('username', username);
       navigate('/home');
     } catch (error) {
       console.error('Login failed', error);

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { setLoading } from './store/AuthSlice';
@@ -11,9 +11,13 @@ import Signup from './components/Signup';
 function App() {
   const token = useSelector((state) => state.auth.token);
   const isLoading = useSelector((state) => state.auth.isLoading);
+  const [username, setUsername] = useState('')
   const dispatch = useDispatch();
 
   useEffect(() => {
+    
+    const savedUsername = localStorage.getItem('username');
+    setUsername(savedUsername)
     dispatch(setLoading(false)); 
   }, [dispatch]);
 
@@ -23,7 +27,7 @@ function App() {
 
   return (
     <Router>
-      <Header />
+      <Header username={username} />
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/home" element={token ? <Home /> : <Navigate to="/login" />} />

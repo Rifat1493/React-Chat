@@ -11,9 +11,13 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+if os.name == "nt":
+    BASE_DIR = str(BASE_DIR).replace("\\", "/")
 
 
 # Quick-start development settings - unsuitable for production
@@ -40,14 +44,13 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "dj_rest_auth",
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'dj_rest_auth.registration',
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "dj_rest_auth.registration",
     "corsheaders",
     "accounts",
-    "prediction"
-
+    "prediction",
 ]
 
 MIDDLEWARE = [
@@ -59,8 +62,8 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.security.SecurityMiddleware",
 ]
 
 ROOT_URLCONF = "mainapp.urls"
@@ -88,13 +91,13 @@ WSGI_APPLICATION = "mainapp.wsgi.application"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'accountsdb',
-        'USER': 'postgres',
-        'PASSWORD': 'donna1holt',
-        'HOST': 'localhost',
-        'PORT': '5432',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "accountsdb",
+        "USER": "postgres",
+        "PASSWORD": "donna1holt",
+        "HOST": "localhost",
+        "PORT": "5432",
     }
 }
 
@@ -139,3 +142,5 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+MEDIA_URL = "prediction/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "prediction", "media")
